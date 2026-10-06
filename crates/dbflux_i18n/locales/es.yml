@@ -4294,11 +4294,14 @@ settings:
       list_connections:
         name: Listar conexiones
         description: Enumerar todas las conexiones de base de datos configuradas
-      get_connection:
-        name: Obtener conexión
-        description: Obtener los detalles completos de una conexión específica
-      get_connection_metadata:
-        name: Metadatos de la conexión
+      connect:
+        name: Conectar
+        description: Abrir una conexión a una base de datos configurada
+      disconnect:
+        name: Desconectar
+        description: Cerrar una conexión de base de datos abierta
+      get_connection_info:
+        name: Información de conexión
         description: Obtener las capacidades del controlador y los metadatos de una conexión
       list_databases:
         name: Listar bases de datos
@@ -4315,15 +4318,57 @@ settings:
       describe_object:
         name: Describir objeto
         description: Obtener las definiciones de columnas/campos e índices de una tabla o colección
-      read_query:
-        name: Consulta de lectura
-        description: Ejecutar una consulta SELECT o equivalente de solo lectura
+      select_data:
+        name: Seleccionar datos
+        description: Leer filas o documentos de una tabla o colección, con filtros y uniones
+      count_records:
+        name: Contar registros
+        description: Contar las filas o documentos que cumplen un filtro
+      aggregate_data:
+        name: Agregar datos
+        description: Agrupar y agregar filas o documentos
       explain_query:
         name: Explicar consulta
         description: Mostrar el plan de ejecución de la consulta sin ejecutarla
       preview_mutation:
         name: Previsualizar mutación
         description: Previsualizar una consulta de escritura/eliminación e informar las filas afectadas
+      insert_record:
+        name: Insertar registro
+        description: Insertar una nueva fila o documento
+      update_records:
+        name: Actualizar registros
+        description: Actualizar las filas o documentos que cumplen un filtro
+      upsert_record:
+        name: Insertar o actualizar registro
+        description: Insertar una fila o documento, o actualizarlo si ya existe
+      delete_records:
+        name: Eliminar registros
+        description: Eliminar las filas o documentos que cumplen un filtro
+      truncate_table:
+        name: Vaciar tabla
+        description: Eliminar todas las filas de una tabla
+      drop_table:
+        name: Eliminar tabla
+        description: Eliminar una tabla de forma permanente
+      drop_database:
+        name: Eliminar base de datos
+        description: Eliminar una base de datos de forma permanente
+      create_table:
+        name: Crear tabla
+        description: Crear una nueva tabla
+      alter_table:
+        name: Modificar tabla
+        description: Cambiar las columnas o restricciones de una tabla
+      create_index:
+        name: Crear índice
+        description: Crear un índice en una tabla
+      drop_index:
+        name: Eliminar índice
+        description: Eliminar un índice
+      create_type:
+        name: Crear tipo
+        description: Crear un tipo de base de datos personalizado
       list_scripts:
         name: Listar scripts
         description: Listar los scripts guardados en el directorio de scripts
@@ -4339,9 +4384,9 @@ settings:
       delete_script:
         name: Eliminar script
         description: Eliminar de forma permanente un script del directorio de scripts
-      run_script:
+      execute_script:
         name: Ejecutar script
-        description: Ejecutar un script Lua/SQL/shell guardado sobre una conexión
+        description: Ejecutar un script guardado en una conexión
       request_execution:
         name: Solicitar ejecución
         description: Enviar una mutación para aprobación humana antes de ejecutarla
@@ -4389,6 +4434,9 @@ settings:
       discovery: Descubrimiento
       schema: Esquema
       query: Consulta
+      write: Escritura
+      destructive: Destructivas
+      ddl: Cambios de esquema
       scripts: Scripts
       approval: Aprobación
       audit: Auditoría

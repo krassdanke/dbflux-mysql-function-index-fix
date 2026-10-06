@@ -33,22 +33,37 @@ use std::collections::HashSet;
 /// and `settings.mcp.tool.<id>.description`.
 const TOOL_IDS: &[&str] = &[
     "list_connections",
-    "get_connection",
-    "get_connection_metadata",
+    "connect",
+    "disconnect",
+    "get_connection_info",
     "list_databases",
     "list_schemas",
     "list_tables",
     "list_collections",
     "describe_object",
-    "read_query",
+    "select_data",
+    "count_records",
+    "aggregate_data",
     "explain_query",
     "preview_mutation",
+    "insert_record",
+    "update_records",
+    "upsert_record",
+    "delete_records",
+    "truncate_table",
+    "drop_table",
+    "drop_database",
+    "create_table",
+    "alter_table",
+    "create_index",
+    "drop_index",
+    "create_type",
     "list_scripts",
     "get_script",
     "create_script",
     "update_script",
     "delete_script",
-    "run_script",
+    "execute_script",
     "request_execution",
     "list_pending_executions",
     "get_pending_execution",
@@ -233,8 +248,9 @@ const TOOL_GROUPS: &[(&str, &[&str])] = &[
         "discovery",
         &[
             "list_connections",
-            "get_connection",
-            "get_connection_metadata",
+            "connect",
+            "disconnect",
+            "get_connection_info",
         ],
     ),
     (
@@ -249,7 +265,36 @@ const TOOL_GROUPS: &[(&str, &[&str])] = &[
     ),
     (
         "query",
-        &["read_query", "explain_query", "preview_mutation"],
+        &[
+            "select_data",
+            "count_records",
+            "aggregate_data",
+            "explain_query",
+            "preview_mutation",
+        ],
+    ),
+    (
+        "write",
+        &["insert_record", "update_records", "upsert_record"],
+    ),
+    (
+        "destructive",
+        &[
+            "delete_records",
+            "truncate_table",
+            "drop_table",
+            "drop_database",
+        ],
+    ),
+    (
+        "ddl",
+        &[
+            "create_table",
+            "alter_table",
+            "create_index",
+            "drop_index",
+            "create_type",
+        ],
     ),
     (
         "scripts",
@@ -259,7 +304,7 @@ const TOOL_GROUPS: &[(&str, &[&str])] = &[
             "create_script",
             "update_script",
             "delete_script",
-            "run_script",
+            "execute_script",
         ],
     ),
     (
@@ -2532,7 +2577,7 @@ mod form_row_tests {
         );
 
         let tools = mcp_policy_tool_ids();
-        assert_eq!(tools.len(), 23);
+        assert_eq!(tools.len(), 38);
         assert!(!tools.contains(&"approve_execution"));
         assert!(!tools.contains(&"reject_execution"));
         assert_eq!(tools[0], "list_connections");
@@ -2644,7 +2689,7 @@ mod form_row_tests {
 
 #[cfg(test)]
 mod tests {
-    use super::{class_meta, tool_meta};
+    use super::{TOOL_GROUPS, TOOL_IDS, class_meta, tool_meta};
 
     const CHROME_KEYS: &[&str] = &[
         "settings.mcp.class.metadata.label",
@@ -2783,22 +2828,37 @@ mod tests {
 
     const EXPECTED_TOOL_IDS: &[&str] = &[
         "list_connections",
-        "get_connection",
-        "get_connection_metadata",
+        "connect",
+        "disconnect",
+        "get_connection_info",
         "list_databases",
         "list_schemas",
         "list_tables",
         "list_collections",
         "describe_object",
-        "read_query",
+        "select_data",
+        "count_records",
+        "aggregate_data",
         "explain_query",
         "preview_mutation",
+        "insert_record",
+        "update_records",
+        "upsert_record",
+        "delete_records",
+        "truncate_table",
+        "drop_table",
+        "drop_database",
+        "create_table",
+        "alter_table",
+        "create_index",
+        "drop_index",
+        "create_type",
         "list_scripts",
         "get_script",
         "create_script",
         "update_script",
         "delete_script",
-        "run_script",
+        "execute_script",
         "request_execution",
         "list_pending_executions",
         "get_pending_execution",
@@ -2827,6 +2887,51 @@ mod tests {
                     );
                 }
             }
+        }
+    }
+
+    #[test]
+    fn every_gui_tool_id_is_a_server_tool() {
+        for id in TOOL_IDS {
+            assert!(
+                dbflux_mcp::is_canonical_v1_tool(id),
+                "GUI tool id {id} is not a tool the MCP server exposes"
+            );
+        }
+    }
+
+    #[test]
+    fn tool_groups_cover_exactly_the_tool_ids() {
+        let grouped: Vec<&str> = TOOL_GROUPS
+            .iter()
+            .flat_map(|(_, tools)| tools.iter().copied())
+            .collect();
+
+        assert_eq!(grouped, TOOL_IDS);
+    }
+
+    #[test]
+    fn gui_offers_every_server_tool_a_person_does_not_resolve() {
+        // approve_execution and reject_execution are resolved by a person in
+        // the UI and are always denied to MCP clients, so no policy lists them.
+        for id in dbflux_mcp::CANONICAL_V1_TOOLS {
+            if matches!(*id, "approve_execution" | "reject_execution") {
+                continue;
+            }
+
+            assert!(
+                TOOL_IDS.contains(id),
+                "server tool {id} cannot be picked in the policy editor"
+            );
+        }
+    }
+
+    #[test]
+    fn tool_group_labels_resolve() {
+        for (group_id, _) in TOOL_GROUPS {
+            let key = format!("settings.mcp.group.{group_id}");
+
+            assert_ne!(dbflux_i18n::t!(&key, locale = "en"), key);
         }
     }
 

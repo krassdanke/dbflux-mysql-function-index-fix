@@ -4293,12 +4293,6 @@ settings:
       list_connections:
         name: 연결 목록
         description: 구성된 모든 데이터베이스 연결을 나열합니다
-      get_connection:
-        name: 연결 조회
-        description: 특정 연결의 전체 세부 정보를 조회합니다
-      get_connection_metadata:
-        name: 연결 메타데이터
-        description: 연결의 드라이버 기능과 메타데이터를 가져옵니다
       list_databases:
         name: 데이터베이스 목록
         description: 연결에서 접근할 수 있는 모든 데이터베이스를 나열합니다
@@ -4314,9 +4308,6 @@ settings:
       describe_object:
         name: 개체 설명
         description: 테이블 또는 컬렉션의 열/필드 정의와 인덱스를 가져옵니다
-      read_query:
-        name: 읽기 쿼리
-        description: SELECT 또는 이에 상응하는 읽기 전용 쿼리를 실행합니다
       explain_query:
         name: 쿼리 실행 계획
         description: 쿼리를 실행하지 않고 실행 계획을 표시합니다
@@ -4338,9 +4329,6 @@ settings:
       delete_script:
         name: 스크립트 삭제
         description: 스크립트를 스크립트 디렉터리에서 영구적으로 제거합니다
-      run_script:
-        name: 스크립트 실행
-        description: 연결에 대해 저장된 Lua/SQL/셸 스크립트를 실행합니다
       request_execution:
         name: 실행 요청
         description: 실행 전에 변경 작업을 사람의 승인을 받도록 제출합니다

@@ -4294,12 +4294,6 @@ settings:
       list_connections:
         name: 列出连接
         description: 枚举所有已配置的数据库连接
-      get_connection:
-        name: 获取连接
-        description: 检索特定连接的完整详情
-      get_connection_metadata:
-        name: 连接元数据
-        description: 获取连接的驱动能力与元数据
       list_databases:
         name: 列出数据库
         description: 列出连接上可访问的所有数据库
@@ -4315,9 +4309,6 @@ settings:
       describe_object:
         name: 描述对象
         description: 获取表或集合的列 / 字段定义和索引
-      read_query:
-        name: 读取查询
-        description: 执行 SELECT 或等效的只读查询
       explain_query:
         name: 解释查询
         description: 显示查询执行计划而不实际执行
@@ -4339,9 +4330,6 @@ settings:
       delete_script:
         name: 删除脚本
         description: 从脚本目录中永久移除脚本
-      run_script:
-        name: 执行脚本
-        description: 对连接执行已保存的 Lua / SQL / shell 脚本
       request_execution:
         name: 请求执行
         description: 在变更执行前提交给人工审批

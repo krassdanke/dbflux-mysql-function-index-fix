@@ -4294,11 +4294,14 @@ settings:
       list_connections:
         name: List Connections
         description: Enumerate all configured database connections
-      get_connection:
-        name: Get Connection
-        description: Retrieve full details of a specific connection
-      get_connection_metadata:
-        name: Connection Metadata
+      connect:
+        name: Connect
+        description: Open a connection to a configured database
+      disconnect:
+        name: Disconnect
+        description: Close an open database connection
+      get_connection_info:
+        name: Connection Info
         description: Fetch driver capabilities and metadata for a connection
       list_databases:
         name: List Databases
@@ -4315,15 +4318,57 @@ settings:
       describe_object:
         name: Describe Object
         description: Get column/field definitions and indexes for a table or collection
-      read_query:
-        name: Read Query
-        description: Execute a SELECT or equivalent read-only query
+      select_data:
+        name: Select Data
+        description: Read rows or documents from a table or collection, with filters and joins
+      count_records:
+        name: Count Records
+        description: Count the rows or documents that match a filter
+      aggregate_data:
+        name: Aggregate Data
+        description: Group and aggregate rows or documents
       explain_query:
         name: Explain Query
         description: Show the query execution plan without running it
       preview_mutation:
         name: Preview Mutation
         description: Dry-run a write/delete query and report affected rows
+      insert_record:
+        name: Insert Record
+        description: Insert a new row or document
+      update_records:
+        name: Update Records
+        description: Update rows or documents that match a filter
+      upsert_record:
+        name: Upsert Record
+        description: Insert a row or document, or update it if it exists
+      delete_records:
+        name: Delete Records
+        description: Delete rows or documents that match a filter
+      truncate_table:
+        name: Truncate Table
+        description: Remove every row from a table
+      drop_table:
+        name: Drop Table
+        description: Permanently delete a table
+      drop_database:
+        name: Drop Database
+        description: Permanently delete a database
+      create_table:
+        name: Create Table
+        description: Create a new table
+      alter_table:
+        name: Alter Table
+        description: Change the columns or constraints of a table
+      create_index:
+        name: Create Index
+        description: Create an index on a table
+      drop_index:
+        name: Drop Index
+        description: Delete an index
+      create_type:
+        name: Create Type
+        description: Create a custom database type
       list_scripts:
         name: List Scripts
         description: List saved scripts in the scripts directory
@@ -4339,9 +4384,9 @@ settings:
       delete_script:
         name: Delete Script
         description: Permanently remove a script from the scripts directory
-      run_script:
-        name: Run Script
-        description: Execute a saved Lua/SQL/shell script against a connection
+      execute_script:
+        name: Execute Script
+        description: Execute a saved script against a connection
       request_execution:
         name: Request Execution
         description: Submit a mutation for human approval before it runs
@@ -4389,6 +4434,9 @@ settings:
       discovery: Discovery
       schema: Schema
       query: Query
+      write: Write
+      destructive: Destructive
+      ddl: Schema changes
       scripts: Scripts
       approval: Approval
       audit: Audit

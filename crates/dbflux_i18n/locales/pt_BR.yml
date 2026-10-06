@@ -4294,12 +4294,6 @@ settings:
       list_connections:
         name: Listar conexões
         description: Enumera todas as conexões de banco de dados configuradas
-      get_connection:
-        name: Obter conexão
-        description: Recupera os detalhes completos de uma conexão específica
-      get_connection_metadata:
-        name: Metadados da conexão
-        description: Busca os recursos e metadados do driver de uma conexão
       list_databases:
         name: Listar bancos de dados
         description: Lista todos os bancos de dados acessíveis em uma conexão
@@ -4315,9 +4309,6 @@ settings:
       describe_object:
         name: Descrever objeto
         description: Obtém as definições de colunas/campos e os índices de uma tabela ou coleção
-      read_query:
-        name: Consulta de leitura
-        description: Executa um SELECT ou uma consulta equivalente somente leitura
       explain_query:
         name: Explicar consulta
         description: Mostra o plano de execução da consulta sem executá-la
@@ -4339,9 +4330,6 @@ settings:
       delete_script:
         name: Excluir script
         description: Remove permanentemente um script do diretório de scripts
-      run_script:
-        name: Executar script
-        description: Executa em uma conexão um script Lua/SQL/shell salvo
       request_execution:
         name: Solicitar execução
         description: Envia uma alteração para aprovação humana antes de ela ser executada
